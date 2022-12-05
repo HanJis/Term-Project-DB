@@ -138,13 +138,12 @@ public class Test {
 			Connection con = DriverManager.getConnection("jdbc:mysql://192.168.56.101:3308/madang", "jshan",
 					"wltjd7851");
 			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs = stmt.executeQuery("select * from Book");
-			rs.last();
-			int rowCount = rs.getRow();
-			rs.beforeFirst();
+			ResultSet rs = stmt.executeQuery("SELECT MAX(bookid) as max_id FROM Book;");
+			rs.next();
+			Integer maxnum = rs.getInt("max_id")+1; 
 			String sql = "INSERT INTO Book(bookid, bookname, publisher, price) VALUES (?,?,?,?)";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, rowCount + 1);
+			ps.setInt(1, maxnum);
 			ps.setString(2, bname.toString());
 			ps.setString(3, publisher.toString());
 			ps.setInt(4, bprice);

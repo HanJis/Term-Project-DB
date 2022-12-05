@@ -269,9 +269,6 @@ public class Test {
 					"wltjd7851");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from Book");
-			rs.last();
-			int rowCount = rs.getRow();
-			rs.beforeFirst();
 			String sql = "DELETE FROM Book WHERE bookid = '"+bnum+"'; ";
 			
 			try {
